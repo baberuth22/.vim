@@ -4,6 +4,6 @@ vimrc
 This is my entire .vim folder
 
 
-You must a a symlink from ~/.vimrc to ~/.vim/vimrc in order to use my vimrc.
+You must add a symlink from ~/.vim/vimrc to ~/.vimrc.
 
 Packages are managed using the awesome Vundle package manager.
