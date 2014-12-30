@@ -1,0 +1,91 @@
+snippet ready "Document ready starter" !b
+// Shorthand for $( document ).ready() and doing it no conflict way
+jQuery(function($) {
+    $1
+});
+endsnippet
+snippet clv "Console Log Variable" !b
+console.log('$1: ', $1);
+endsnippet
+snippet $ "jQuery Variable" 
+$('$1')
+endsnippet
+snippet col "This creates a meteor collection" !b
+${1:CollectionName} = new Meteor.Collection("${2:mongo-name}");
+endsnippet
+snippet bryan "Bryan Rules" !b
+Bryan is the shizzle
+endsnippet
+snippet fn "Function" 
+function(){
+
+}
+endsnippet
+snippet tra "Trace a variable" 
+trace("$1: " + $1);
+endsnippet
+snippet ic "This creates the team icon" !b
+[Embed('images/logos/logo_${1:team}_79x76.jpg')]
+private var icon_$1:Class;
+endsnippet
+snippet sl "Created a quick association" !b
+$1Spinner.selectedItem = $1ListButton.label;
+endsnippet
+
+snippet isMobile "The is mobile function" !b
+// SLTWTR
+function isMobile(t,f,w){
+
+ 	if(typeof w === 'undefined') { w = 635; }
+ 	if(typeof t === 'undefined') { t = true; }
+ 	if(typeof f === 'undefined') { f = false; }
+
+	if($(window).width() < w ) {
+		return t
+	} else {
+		return f;
+	}
+
+ }
+endsnippet
+snippet cookie "Creaate a cookie with jQuery cookie" 
+$.cookie('${1:name}', '${2:value}', { expires: ${3:expires}, path: '${4:path}' });
+endsnippet
+snippet sel "Get selected value of a SELECT" 
+$("${1:#selector} option:selected" ).text();
+endsnippet
+snippet divider "Create a divider for sections of code" !b
+/**************************************************************************
+	$1
+**************************************************************************/
+endsnippet
+snippet domain "Set the current domain" 
+var domain = window.location.host;
+if(domain == 'localhost'){
+	domain = domain + '/$1';
+}
+domain = 'http://' + domain;
+endsnippet
+snippet ajax "Create an ajax function" 
+$.ajax({
+            method: "GET",
+            url: ${1:searchURL},
+            success: function (data, status) {
+                console.log('success', data);
+            },
+            error: function (request, status, error) {
+                alert("Error:" + request.statusText + " " + error);
+            }
+        }); 
+endsnippet
+snippet on "jQuery on func" 
+$('$1').on('${2:click}', function (e){
+	$3
+});
+endsnippet
+snippet each "jQuery Each on dom" 
+$$1.each(function(index, e){
+			$this = $(this);
+			$2
+	});
+endsnippet

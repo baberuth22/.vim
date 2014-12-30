@@ -1,0 +1,6 @@
+snippet < "Start and HTML tag" b
+<${1:xml}>$1</${1/(\w+).*/$1/}>
+endsnippet
+snippet { "Start and HTML tag" b
+<${1:xml}> {{ $1 }} </${1/(\w+).*/$1/}>
+endsnippet

@@ -1,0 +1,86 @@
+snippet sz "Set blank values to zero" !b
+if( $$1 == '') $$1 = 0;
+endsnippet
+snippet #! "bang" !b
+#!usr/bin/perl
+endsnippet
+snippet p "parse something new" !b
+my $${1} = $e->at('${2}')->text;
+say "$1 is " . $$1;
+endsnippet
+snippet parse "Parse a piece of html with mech!!" !b
+my $${1} = $e->at('td:nth-child($2) > div')->text;
+say "$1 is " . $$1;
+
+endsnippet
+snippet s "say a variable:)" 
+say "$1 is " . $$1;
+endsnippet
+snippet hashish "initialize a hash" !b
+%$1 = (
+        ${2:key1} => '${3:value1}',
+        $4 => '$5',
+    );
+endsnippet
+snippet ass "Assign Data" !b
+my $$1 = $decoded_json->{'data'}[$i][$2];
+endsnippet
+snippet hashloop "Loop an array of hash keys and values" !b
+while ((${2:key}, ${3:value}) = each(%${1:hash})){
+
+}
+
+endsnippet
+snippet my "Assign Empty String" !b
+my $$1 = '';
+endsnippet
+snippet set "Set the mech perl" !b
+setHTMLValueBySelector($${1:var}, $e, '${2:css}');
+say "$1 is " . $$1;
+endsnippet
+snippet par "Get another value from the page" !b
+try{
+	$${1:name} = $g->at('td.$1')->text;
+	$$1 = choppy($$1);
+	say $$1;
+}catch{};
+endsnippet
+snippet ss "Create sub string" !b
+$${1:myLabel} =~ s/$2/$3/g;
+endsnippet
+snippet 0null "if zero set to null" !b
+if($$1 == 0){
+	$$1 = 'NULL';
+}
+endsnippet
+snippet f "FieldNAME" 
+\${fieldName}
+endsnippet
+
+snippet sqli "This creates the entire sql file insert or update code" !b
+    ################################################################################
+    #   Create SQL file
+    #
+    
+    my $insertOrUpdate = 'update';
+    my $databaseName = '';
+    my $tableName = '';
+
+    my $fieldString = "var1, var2, var3"; 
+
+    my $varString =  "$var1, $var2, $var3";
+
+    my $sqlInsertStatement = "INSERT INTO $databaseName.$tableName ( created, $fieldString) VALUES ( NOW(), $varString );\n";
+
+
+    my $valuePairs = "var1=$var1, var2=$var2, var3=$var3"; 
+
+    my $sqlUpdateStatement = "UPDATE $databaseName.$tableName set $valuePairs where team_name = '$team_name' and year = '$year';\n";
+
+    
+    if( $insertOrUpdate eq 'insert'){
+        $sqlFile .= $sqlInsertStatement;
+    }elsif( $insertOrUpdate eq 'update'){
+        $sqlFile .= $sqlUpdateStatement;
+    }
+endsnippet

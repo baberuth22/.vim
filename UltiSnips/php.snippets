@@ -1,0 +1,232 @@
+snippet <? "echo global var" 
+<? $1 ?>
+endsnippet
+snippet ss "PHP var shorthand" 
+<?= $$1 ?>
+endsnippet
+snippet sf "PHP var shorthand" 
+<?= $fields[$1] ?>
+endsnippet
+snippet att "Attribute assignment" !b
+$${1:attributeName} = $this->attribute('$1', '$2');
+endsnippet
+snippet < "Start and HTML tag" b
+<${1:div}>
+
+</${1/(\w+).*/$1/}>
+endsnippet
+snippet ei "The elseif for attributes" 
+elseif( $${1:attibuteName} !- ''){
+            $this_where = '$1 >= ' . $$1;
+           array_push( $where_array, $this_where);
+}
+endsnippet
+snippet pvar "Set a POST variable to local if isset" !b
+$${1:varname} = isset($_POST['$1']) ? $_POST['$1'] : ${2:default_val};
+endsnippet
+snippet gvar "Set a GET variable to local if isset" !b
+$${1:varname} = isset($_GET['$1']) ? $_GET['$1'] : ${2:default_val};
+endsnippet
+snippet ivar "Set a variable if isset" !b
+$${3:varname} = isset($${1}) ? $$1 : ${2:default_val};
+endsnippet
+snippet ev "Echo the variable" !b
+echo '<pre>'; echo '$${1:varname}: ' . $$1; echo '</pre>'; 
+endsnippet
+snippet prv "Print R for variable" !b
+echo '$${1:varname}: ';
+echo '<pre>'; print_r($$1); echo '</pre>';
+endsnippet
+snippet isn "If variable is null, assign it" !b
+if($${1:var1} == null) $$1 = ${2:default_val};
+endsnippet
+snippet ebr "Echo a line break" !b
+echo '<br/>';
+endsnippet
+snippet wps "Wordpress Start Page" !b
+<?php
+
+require_once($_SERVER['DOCUMENT_ROOT'].'/wp-config.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/wp-includes/wp-db.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/wp-includes/pluggable.php');
+
+endsnippet
+snippet <t "Echo template" 
+<?=TEMPLATE_DIR?>
+endsnippet
+snippet gtd "Get Template Directory" 
+get_template_directory()
+endsnippet
+snippet gtdu "Get Template Directory" 
+get_template_directory_uri()
+endsnippet
+snippet nn "Add a newline"
+. "\n"
+endsnippet
+snippet gf "Get Field" 
+$${1:varname} = get_field('$1');
+endsnippet
+snippet gaf "Get All fields" 
+$fields = get_all_fields($post_id);
+endsnippet
+snippet pid "Assign Post Id" 
+$post_id = get_the_ID();
+endsnippet
+snippet gfs "Get all fields" 
+$this_pickup = get_fields();
+endsnippet
+snippet feat_image "Get the featured image of a post" 
+$feat_image = wp_get_attachment_url( get_post_thumbnail_id() );
+endsnippet
+snippet tpt "The Post Thumbnail" 
+the_post_thumbnail( '${1:thumbnail}', array( 'class' => '${1:class}' ) );
+endsnippet
+snippet wpdb "Create a Wordpress DB query and get nice results" !b
+$${1:name}Sql = "select * from ${2:tableName}";
+$$1Query = $wpdb->prepare($$1Sql)
+$$1 = $wpdb->get_results($$1Query);
+$nice$1 = convert_db_result_to_friendly_array($$1, '${3:id}');  
+
+endsnippet
+snippet custom_post_type "Creates custom post type" !b
+// Create Custom Post type for 
+function create_post_type_${1:function_name}()
+{
+    register_post_type('${2:slug}', // Register Custom Post Type
+        array(
+        'labels' => array(
+            'name' => __('${3:Title}s', '$2'), // Rename these to suit
+            'singular_name' => __('$3', '$2'),
+            'add_new' => __('Add New', '$2'),
+            'add_new_item' => __('Add New $3', '$2'),
+            'edit' => __('Edit', '$2'),
+            'edit_item' => __('Edit $3', '$2'),
+            'new_item' => __('New $3', '$2'),
+            'view' => __('View $3', '$2'),
+            'view_item' => __('View $3', '$2'),
+            'search_items' => __('Search $3s', '$2'),
+            'not_found' => __('No $3s', '$2'),
+            'not_found_in_trash' => __('No $3s found in Trash', '$2')
+        ),
+        'public' => true,
+        'hierarchical' => false, // Allows your posts to behave like Hierarchy Pages
+        'has_archive' => true,
+        'supports' => array(
+            'title',
+            'editor',
+            'excerpt',
+            'thumbnail'
+        ), // Go to Dashboard Custom Seymour Duncan Theme post for supports
+        'can_export' => true // Allows export in Tools > Export
+    ));
+}
+
+endsnippet
+
+snippet taxonomy "Create new taxonomy" !b
+	// Add new "${1:Human Name}" taxonomy, make it hierarchical (like categories)
+	$labels = array(
+      'name' => _x( '$1s', 'taxonomy general name' ),
+      'singular_name' => _x( '$1', 'taxonomy singular name' ),
+      'search_items' =>  __( 'Search $1s' ),
+      'all_items' => __( 'All $1s' ),
+      'parent_item' => __( 'Parent $1' ),
+      'parent_item_colon' => __( 'Parent $1:' ),
+      'edit_item' => __( 'Edit $1' ),
+      'update_item' => __( 'Update $1' ),
+      'add_new_item' => __( 'Add New $1' ),
+      'new_item_name' => __( 'New $1 Name' ),
+      'menu_name' => __( '$1s' ),
+	);
+
+	$args = array(
+		'hierarchical'      => true,
+		'labels'            => $labels,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite' => array(
+		  'slug' => '$2s', // This controls the base slug that will display before each term
+		  'with_front' => false, // Don't display the category base before "/boats/"
+		  'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
+		),
+	);
+
+	register_taxonomy( '${2:slug}', '${3:apply-to-post-type}', $args );
+endsnippet
+
+snippet taxonomy_tags "Create a taxonomy using tags" !b
+	// Add new "${1:Human Name}" taxonomy, NOT hierarchical (like tags)
+	$labels = array(
+		'name'                       => _x( '$1s', 'taxonomy general name' ),
+		'singular_name'              => _x( '$1', 'taxonomy singular name' ),
+		'search_items'               => __( 'Search $1s' ),
+		'popular_items'              => __( 'Popular $1s' ),
+		'all_items'                  => __( 'All $1s' ),
+		'parent_item'                => null,
+		'parent_item_colon'          => null,
+		'edit_item'                  => __( 'Edit $1' ),
+		'update_item'                => __( 'Update $1' ),
+		'add_new_item'               => __( 'Add New $1' ),
+		'new_item_name'              => __( 'New $1 Name' ),
+		'separate_items_with_commas' => __( 'Separate $1s with commas' ),
+		'add_or_remove_items'        => __( 'Add or remove $1s' ),
+		'choose_from_most_used'      => __( 'Choose from the most used $1s' ),
+		'not_found'                  => __( 'No $1s found.' ),
+		'menu_name'                  => __( '$1s' ),
+	);
+
+	$args = array(
+		'hierarchical'          => false,
+		'labels'                => $labels,
+		'show_ui'               => true,
+		'show_admin_column'     => true,
+		'update_count_callback' => '_update_post_term_count',
+		'query_var'             => true,
+		'rewrite' => array(
+		  'slug' => '$2s', // This controls the base slug that will display before each term
+		  'with_front' => false, // Don't display the category base before "/boats/"
+		  'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
+		),
+	);
+
+	register_taxonomy( '${2:slug}', '${3:apply-to-post-type}', $args );
+endsnippet
+snippet has_posts "The default wordpress has posts starter" !b
+		<?php if (have_posts()): while (have_posts()) : the_post(); ?>
+
+			<?php 
+				$postID = get_the_ID(); 
+				$1
+			?>
+		<?php endwhile; ?>
+
+		<?php endif; ?>
+
+endsnippet
+snippet incf "Include a File" 
+<? 
+    include( get_template_directory() . '/${1:pathandname}' );
+?>
+endsnippet
+snippet post_loop "Loop a custom post type" !b
+<?php $loop = new WP_Query( array( 'post_type' => '${1:yourposttypehere}', 'posts_per_page' => ${2:posts_per_page} ) ); ?>
+<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
+${3:content}
+<?php endwhile; wp_reset_query(); ?>
+
+endsnippet
+
+snippet hif "PHP if else for html" !b
+<?  if(${1:condition}){ ?>
+	$2
+<?  }else{ ?>
+	$3
+<?  } ?>
+endsnippet
+snippet dn "Create a style = display none" 
+style="display:none"
+endsnippet
+snippet alp "Alpha options" 
+<option value="$1">$1</option>
+endsnippet
